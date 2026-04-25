@@ -104,7 +104,7 @@ export default function TechnicalLibrary() {
           </nav>
         </aside>
 
-        {/* Main Content Canvas */}
+        {/*  Main Content Canvas */}
         <main className="flex-1 overflow-y-auto relative bg-white">
           <div className="technical-grid absolute inset-0 pointer-events-none"></div>
           <div className="relative z-10 p-4 md:p-6 lg:p-10 max-w-7xl mx-auto">
