@@ -1,5 +1,9 @@
+"use client";
+
 import React from 'react';
 import Link from "next/link";
+import { ThemeToggle } from "./Components/theme-toggle";
+
 
 export default function Home() {
   return (
@@ -13,6 +17,7 @@ export default function Home() {
           <span className="text-2xl font-black italic tracking-tighter text-orange-600 font-headline uppercase">
             SPEEDBOLT
           </span>
+          <ThemeToggle />
         </div>
 
         <nav className="hidden md:flex items-center gap-8">
@@ -44,14 +49,14 @@ export default function Home() {
           <div className="bg-orange-600/10 text-orange-600 border-l-4 border-orange-600 font-bold px-6 py-4 flex items-center gap-4 font-headline text-sm tracking-widest">
             <span className="material-symbols-outlined">query_stats</span> Telemetry
           </div>
-          <a className="text-neutral-500 px-6 py-4 hover:bg-neutral-900 transition-all flex items-center gap-4 font-headline text-sm tracking-widest group cursor-pointer">
-            <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">air</span> Aero Dynamics
+          <a className="text-neutral-500 px-6 py-4 hover:bg-neutral-900 active:bg-neutral-800 touch-manipulation transition-all flex items-center gap-4 font-headline text-sm tracking-widest group cursor-pointer">
+            <span className="material-symbols-outlined group-hover:translate-x-1 group-active:translate-x-1 transition-transform">air</span> Aero Dynamics
           </a>
           {/* <a className="text-neutral-500 px-6 py-4 hover:bg-neutral-900 transition-all flex items-center gap-4 font-headline text-sm tracking-widest group cursor-pointer">
             <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">Files</span> Files
-          </a> */}
-          <Link href="/files" className="text-neutral-500 px-6 py-4 hover:bg-neutral-900 transition-all flex items-center gap-4 font-headline text-sm tracking-widest group cursor-pointer">
-            <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">
+            </a> */}
+            <Link href="/files" className="text-neutral-500 px-6 py-4 hover:bg-neutral-900 active:bg-neutral-800 transition-all flex items-center gap-4 font-headline text-sm tracking-widest group cursor-pointer touch-manipulation">
+            <span className="material-symbols-outlined group-hover:translate-x-1 group-active:translate-x-1 transition-transform">
               Files</span>Files</Link>
         </nav>
 
@@ -84,7 +89,7 @@ export default function Home() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <button className="bg-orange-600 text-black px-8 py-4 font-headline font-bold uppercase tracking-tight flex items-center gap-3 hover:bg-orange-500 transition-all">
+              <button className="bg-orange-600 text-black px-8 py-4 font-headline font-bold uppercase tracking-tight flex items-center gap-3 hover:bg-orange-500 active:bg-orange-400 active:scale-95 transition-all touch-manipulation">
                 DEPLOY SYSTEMS <span className="material-symbols-outlined">bolt</span>
               </button>
               <button className="border border-teal-500 text-teal-400 px-8 py-4 font-headline font-bold uppercase tracking-tight hover:bg-teal-500/10 transition-all">
@@ -158,7 +163,7 @@ export default function Home() {
       </main>
 
       {/* FAB */}
-      <button className="fixed bottom-8 right-8 w-14 h-14 bg-orange-600 text-black rounded-full shadow-[0_0_20px_rgba(227,121,3,0.5)] flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+      <button className="fixed bottom-8 right-8 w-14 h-14 bg-orange-600 text-black rounded-full shadow-[0_0_20px_rgba(227,121,3,0.5)] flex items-center justify-center hover:scale-110 active:scale-90 transition-all touch-manipulation">
         <span className="material-symbols-outlined text-3xl">bolt</span>
       </button>
     </div>

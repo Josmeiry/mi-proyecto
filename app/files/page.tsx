@@ -2,6 +2,8 @@
 import React from 'react';
 import Head from 'next/head';
 import Image from "next/image";
+import { ThemeToggle } from "../Components/theme-toggle";
+
 
 type ActionButtonProps = {
   icon: string;
@@ -31,10 +33,12 @@ export default function TechnicalLibrary() {
     <div className="bg-white text-[#1a1c1c] font-['Space_Grotesk'] min-h-screen">
       <Head>
         <title>SPEEDBOLT | Technical Library</title>
+        
         <link
           href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
           rel="stylesheet"
         />
+        <ThemeToggle />
       </Head>
 
       
@@ -57,6 +61,7 @@ export default function TechnicalLibrary() {
                       width={40}
                       height={60}
                       className="object-contain"
+                      style={{ width: "auto", height: "auto" }}
                     />
                     
               </div>
