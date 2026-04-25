@@ -13,7 +13,7 @@ export default function Home() {
       
 
       {/* HEADER */}
-      <header className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 h-20 bg-black/90 backdrop-blur-md border-b border-neutral-800/50 shadow-[0px_4px_20px_rgba(0,0,0,0.9)]">
+      <header className="fixed top-0 left-0 lg:left-80 w-full z-50 flex justify-between items-center px-8 h-20 bg-black/90 backdrop-blur-md border-b border-neutral-800/50 shadow-[0px_4px_20px_rgba(0,0,0,0.9)]">
         <button onClick={() => setOpen(!open)} className="lg:hidden text-orange-600 text-3xl">
           ☰
        </button>

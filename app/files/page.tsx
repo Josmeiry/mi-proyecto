@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Image from "next/image";
 import { ThemeToggle } from "../Components/theme-toggle";
@@ -29,6 +29,7 @@ type FileItemProps = {
 };
 
 export default function TechnicalLibrary() {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div className="bg-white text-[#1a1c1c] font-['Space_Grotesk'] min-h-screen">
       <Head>
@@ -46,7 +47,9 @@ export default function TechnicalLibrary() {
       {/* TopAppBar */}
       <header className="flex justify-between items-center w-full px-4 h-16 sticky top-0 z-50 bg-white border-b border-slate-900/10">
         <div className="flex items-center gap-4">
-          <span className="material-symbols-outlined text-slate-600 cursor-pointer">menu</span>
+          <span onClick={() => setMenuOpen(!menuOpen)} className="material-symbols-outlined text-slate-600 cursor-pointer">
+            menu
+         </span>
           <div className="flex items-center gap-2">
             {/* <img 
               alt="SPEEDBOLT Logo" 
@@ -82,7 +85,7 @@ export default function TechnicalLibrary() {
 
       <div className="flex h-[calc(100vh-64px)] overflow-hidden">
         {/* NavigationDrawer (Desktop) */}
-        <aside className="w-64 h-full bg-slate-50 border-r border-slate-900/10 hidden md:flex flex-col pt-8">
+        <aside className={`w-64 h-full bg-slate-50 border-r border-slate-900/10 pt-8 flex-col z-50 transform transition-transform duration-300 ${menuOpen ? "translate-x-0" : "-translate-x-full"} fixed top-0 left-0 md:static md:translate-x-0 md:flex`}>
           <div className="px-6 mb-8">
             <div className="flex items-center gap-3">
               <div className="w-10 h-8 bg-slate-200 rounded-none flex items-center justify-center overflow-hidden border border-slate-300">
@@ -108,6 +111,9 @@ export default function TechnicalLibrary() {
             <NavItem icon="tune" label="Settings" />
           </nav>
         </aside>
+        {menuOpen && (
+          <div onClick={() => setMenuOpen(false)} className="fixed inset-0 bg-black/50 z-40 md:hidden"/>
+       )}
 
         {/*  Main Content Canvas */}
         <main className="flex-1 overflow-y-auto relative bg-white">
