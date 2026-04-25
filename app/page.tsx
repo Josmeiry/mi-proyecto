@@ -6,12 +6,17 @@ import { ThemeToggle } from "./Components/theme-toggle";
 
 
 export default function Home() {
+  const [open, setOpen] = React.useState(false);
   return (
+    
     <div className="bg-black text-[#f2dfd3] font-sans selection:bg-orange-600/30 selection:text-white overflow-x-hidden min-h-screen">
       
 
       {/* HEADER */}
       <header className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 h-20 bg-black/90 backdrop-blur-md border-b border-neutral-800/50 shadow-[0px_4px_20px_rgba(0,0,0,0.9)]">
+        <button onClick={() => setOpen(!open)} className="lg:hidden text-orange-600 text-3xl">
+          ☰
+       </button>
         <div className="flex items-center gap-4">
           <span className="material-symbols-outlined text-orange-600 text-3xl">leaderboard</span>
           <span className="text-2xl font-black italic tracking-tighter text-orange-600 font-headline uppercase">
@@ -32,7 +37,7 @@ export default function Home() {
       </header>
 
       {/* SIDEBAR */}
-      <aside className="fixed left-0 top-0 h-full w-80 bg-[#121212] border-r border-neutral-800 pt-24 hidden lg:flex flex-col z-40 shadow-2xl">
+      <aside className={`fixed left-0 top-0 h-full w-80 bg-[#121212] border-r border-neutral-800 pt-24 flex flex-col z-50 shadow-2xl transform transition-transform duration-300 ${open ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}>
         <div className="flex items-center gap-4 px-6 mb-8">
           <img
             className="w-12 h-12 rounded-full border border-orange-600 object-cover"
@@ -55,7 +60,7 @@ export default function Home() {
           {/* <a className="text-neutral-500 px-6 py-4 hover:bg-neutral-900 transition-all flex items-center gap-4 font-headline text-sm tracking-widest group cursor-pointer">
             <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">Files</span> Files
             </a> */}
-            <Link href="/files" className="text-neutral-500 px-6 py-4 hover:bg-neutral-900 active:bg-neutral-800 transition-all flex items-center gap-4 font-headline text-sm tracking-widest group cursor-pointer touch-manipulation">
+            <Link href="/files" onClick={() => setOpen(false)} className="text-neutral-500 px-6 py-4 hover:bg-neutral-900 active:bg-neutral-800 transition-all flex items-center gap-4 font-headline text-sm tracking-widest group cursor-pointer touch-manipulation">
             <span className="material-symbols-outlined group-hover:translate-x-1 group-active:translate-x-1 transition-transform">
               Files</span>Files</Link>
         </nav>
@@ -70,6 +75,9 @@ export default function Home() {
           </div>
         </div>
       </aside>
+      {open && (
+       <div onClick={() => setOpen(false)} className="fixed inset-0 bg-black/50 z-40 lg:hidden"/>
+     )}
 
       {/* MAIN CONTENT */}
       <main className="lg:ml-80 pt-20">
