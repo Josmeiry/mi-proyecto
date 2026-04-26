@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ThemeToggle } from "./Components/theme-toggle";
+import { usePathname } from "next/navigation";
 
 type NavItemProps = {
   href: string;
@@ -42,14 +43,14 @@ type ArticleCardProps = {
 
 export default function TechnicalLibraryPage() {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const pathname = usePathname();
   return (
-    <div className="min-h-screen bg-background text-on-background">
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-16 bg-white dark:bg-surface border-b border-slate-900/10 dark:border-outline">
+    <div className="min-h-screen bg-background text-text">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-16 bg-white dark:bg-surface border-b border-slate-200 dark:border-border">
         <div className="flex items-center gap-4">
           <button
             onClick={() => setMenuOpen((v) => !v)}
-            className="md:hidden text-slate-700 text-3xl leading-none touch-manipulation"
+            className="md:hidden text-slate-700 text-3xl leading-none touch-manipulation bg-primary text-text dark:text-text hover:bg-primary-soft transition-all"
             aria-label="Abrir menú"
           >
             ☰
@@ -111,14 +112,15 @@ export default function TechnicalLibraryPage() {
       <div className="flex pt-16 min-h-screen">
         <aside
           className={`
-            fixed md:static top-16 md:top-auto left-0 z-50 md:z-auto
-            w-72 md:w-64 h-[calc(100vh-4rem)] md:h-auto
-            bg-slate-50 dark:bg-speed-teal dark:bg-surface-container-low border-r border-slate-900/10 dark:border-outline
-            transform transition-transform duration-300
-            ${menuOpen ? "translate-x-0" : "-translate-x-full"}
-            md:translate-x-0
-            flex flex-col pt-8
-          `}
+    fixed md:static top-16 md:top-auto left-0 z-50 md:z-auto
+    w-72 md:w-64 h-[calc(100vh-4rem)] md:h-auto
+    bg-black dark:bg-black
+    border-r border-slate-200 dark:border-white/10
+    transform transition-transform duration-300
+    ${menuOpen ? "translate-x-0" : "-translate-x-full"}
+    md:translate-x-0
+    flex flex-col pt-8
+  `}
         >
           <div className="px-6 mb-8">
             <div className="flex items-center gap-3">
@@ -148,31 +150,35 @@ export default function TechnicalLibraryPage() {
               href="/"
               icon="dashboard"
               label="Home"
+              active={pathname === "/"}
               onClick={() => setMenuOpen(false)}
             />
             <NavItem
               href="/telemetry"
               icon="analytics"
               label="Telemetry"
+              active={pathname.startsWith("/telemetry")}
               onClick={() => setMenuOpen(false)}
             />
             <NavItem
               href="/performance"
               icon="speed"
               label="Performance"
+              active={pathname.startsWith("/performance")}
               onClick={() => setMenuOpen(false)}
             />
             <NavItem
               href="/files"
               icon="folder_open"
               label="Files"
-              active
+              active={pathname.startsWith("/files")}
               onClick={() => setMenuOpen(false)}
             />
             <NavItem
               href="/settings"
               icon="tune"
               label="Settings"
+              active={pathname.startsWith("/settings")}
               onClick={() => setMenuOpen(false)}
             />
           </nav>
@@ -193,7 +199,7 @@ export default function TechnicalLibraryPage() {
                   height={675}
                   priority
                 />
-                <div className="absolute top-4 right-4 bg-primary text-white px-4 py-1 text-mono-label font-mono-label uppercase">
+                <div className="absolute top-4 right-4 bg-primary text-text dark:text-text px-4 py-1 text-mono-label font-mono-label uppercase">
                   Technical Lead
                 </div>
               </div>
@@ -201,11 +207,11 @@ export default function TechnicalLibraryPage() {
               <div className="w-full md:w-1/3 flex flex-col justify-center">
                 <div className="flex items-center gap-2 mb-4">
                   <span className="w-8 h-[1px] bg-secondary" />
-                  <span className="text-slate-800 dark:text-on-surface font-mono-label text-mono-label uppercase tracking-widest">
+                  <span className="text-slate-400 dark:text-on-surface font-mono-label text-mono-label uppercase tracking-widest">
                     Aerodynamics // Analysis
                   </span>
                 </div>
-                <h1 className="font-h1 text-h1 text-slate-800 dark:text-on-surface leading-none mb-6">
+                <h1 className="font-h1 text-h1 text-slate-500 dark:text-on-surface leading-none mb-6">
                   ADVANCED AERO: REDEFINING DOWNFORCE
                 </h1>
                 <p className="font-body-lg text-body-lg text-slate-600 dark:text-on-surface-variant mb-8 border-l-2 border-primary-container pl-6">
@@ -213,39 +219,53 @@ export default function TechnicalLibraryPage() {
                   and its impact on rear-wing efficiency in turbulent wake
                   scenarios.
                 </p>
-                <button className="bg-primary text-slate-900 font-mono-label text-mono-label uppercase py-4 px-8 self-start tracking-widest hover:bg-primary-container transition-colors">
+                <button className="bg-primary text-text dark:text-slate-600 font-mono-label text-mono-label uppercase py-4 px-8 self-start tracking-widest hover:bg-primary-soft transition-all hover:scale-105 active:scale-95">
                   Access Paper_
                 </button>
               </div>
             </section>
 
-            <section className="w-full bg-slate-50 border-y border-slate-900/10 py-6">
-              <div className="max-w-7xl mx-auto px-0 overflow-x-auto no-scrollbar flex items-center gap-8">
-                <span className="text-slate-400 dark:text-on-surface-variant font-mono-label text-mono-label uppercase shrink-0">
-                  Filter_Index:
-                </span>
-                <button className="text-primary font-bold font-mono-label text-mono-label uppercase shrink-0 px-4 py-2 bg-white mechanical-border">
-                  Telemetry
-                </button>
-                <button className="text-slate-600 dark:text-on-surface-variant font-mono-label text-mono-label uppercase shrink-0 px-4 py-2 hover:bg-slate-100 transition-colors">
-                  Aerodynamics
-                </button>
-                <button className="text-slate-600 dark:text-on-surface-variant font-mono-label text-mono-label uppercase shrink-0 px-4 py-2 hover:bg-slate-100 transition-colors">
-                  Materials
-                </button>
-                <button className="text-slate-600 dark:text-on-surface-variant font-mono-label text-mono-label uppercase shrink-0 px-4 py-2 hover:bg-slate-100 transition-colors">
-                  Simulations
-                </button>
-                <button className="text-slate-600 dark:text-on-surface-variant font-mono-label text-mono-label uppercase shrink-0 px-4 py-2 hover:bg-slate-100 transition-colors">
-                  Power Unit
-                </button>
-              </div>
-            </section>
+         <section
+  className="
+    w-full 
+    bg-slate-100 
+    dark:bg-black
+    border-y border-slate-200 dark:border-white/10
+    py-6
+  "
+>
+  <div className="dark:bg-surface max-w-7xl mx-auto px-0 overflow-x-auto no-scrollbar flex items-center gap-8">
+    
+    <span className="text-slate-400 dark:text-text-muted font-mono-label uppercase shrink-0">
+      Filter_Index:
+    </span>
+
+    
+
+    {/* INACTIVOS */}
+    {["Aerodynamics", "Materials", "Simulations", "Power Unit"].map((item) => (
+      <button
+        key={item}
+        className="
+          uppercase shrink-0 px-4 py-2
+          text-slate-600 dark:text-text-muted
+          hover:bg-slate-100 dark:hover:bg-surface-container
+          hover:text-slate-900 dark:hover:text-text
+          hover:scale-105 active:scale-95
+          transition-all
+          border border-transparent hover:border-primary
+        "
+      >
+        {item}
+      </button>
+    ))}
+  </div>
+</section>
 
             <section className="max-w-7xl mx-auto px-0 py-20">
               <div className="flex justify-between items-end mb-12">
                 <div>
-                  <h2 className="font-h2 text-h2 text-slate-900 dark:text-on-surface uppercase">
+                  <h2 className="font-h2 text-h2 text-text dark:text-slate-700 uppercase">
                     Recent_Articles
                   </h2>
                   <p className="font-mono-label text-mono-label text-slate-500 dark:text-on-surface-variant uppercase">
@@ -290,7 +310,7 @@ export default function TechnicalLibraryPage() {
               </div>
             </section>
 
-            <section className="w-full bg-slate-950 text-white py-20 px-6 overflow-hidden relative">
+            <section className="w-full bg-slate-950 text-text dark:text-text py-20 px-6 overflow-hidden relative">
               <div className="absolute inset-0 opacity-10 pointer-events-none engineering-grid" />
               <div className="max-w-4xl mx-auto flex flex-col items-center text-center relative z-10">
                 <span className="text-primary font-mono-label text-mono-label uppercase mb-4 tracking-[0.2em]">
@@ -305,11 +325,11 @@ export default function TechnicalLibraryPage() {
                 </p>
                 <form className="w-full max-w-lg flex flex-col md:flex-row gap-4">
                   <input
-                    className="flex-grow bg-transparent border-b-2 border-slate-800 focus:border-primary px-4 py-4 font-mono-label text-white outline-none transition-all placeholder:text-slate-700"
+                    className="flex-grow bg-transparent border-b-2 border-slate-800 focus:border-primary px-4 py-4 font-mono-label text-text dark:text-text outline-none transition-all placeholder:text-slate-700"
                     placeholder="ENGINEER_ID@CORP.F1"
                     type="email"
                   />
-                  <button className="bg-primary text-white font-mono-label text-mono-label uppercase px-8 py-4 hover:bg-primary-container transition-colors">
+                  <button className="bg-primary text-text dark:text-text font-mono-label text-mono-label uppercase px-8 py-4 hover:bg-primary-container transition-colors">
                     Register_Device
                   </button>
                 </form>
@@ -339,7 +359,7 @@ export default function TechnicalLibraryPage() {
 
         <div className="grid grid-cols-2 gap-x-16 gap-y-4">
           <div className="flex flex-col gap-2">
-            <span className="text-slate-900 font-bold font-mono-label text-mono-label uppercase mb-2">
+            <span className="text-slate-700 font-bold font-mono-label text-mono-label uppercase mb-2">
               Technical
             </span>
             <a
@@ -356,7 +376,7 @@ export default function TechnicalLibraryPage() {
             </a>
           </div>
           <div className="flex flex-col gap-2">
-            <span className="text-slate-900 font-bold font-mono-label text-mono-label uppercase mb-2">
+            <span className="text-slate-700 font-bold font-mono-label text-mono-label uppercase mb-2">
               Research
             </span>
             <a
@@ -375,14 +395,35 @@ export default function TechnicalLibraryPage() {
         </div>
 
         <div className="flex gap-4">
-          <div className="w-10 h-10 border border-slate-200 flex items-center justify-center hover:bg-primary hover:text-white transition-colors cursor-pointer">
+          <div className="w-10 h-10 border border-slate-200 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-gray-500 dark:hover:text-slate-600 transition-colors cursor-pointer">
             <span className="material-symbols-outlined text-sm">terminal</span>
           </div>
-          <div className="w-10 h-10 border border-slate-200 flex items-center justify-center hover:bg-primary hover:text-white transition-colors cursor-pointer">
+          <div className="w-10 h-10 border border-slate-200 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-gray-500 dark:hover:text-slate-600 transition-colors cursor-pointer">
             <span className="material-symbols-outlined text-sm">share</span>
           </div>
         </div>
       </footer>
+      {/* Mobile Nav */}
+<nav className="fixed bottom-0 w-full z-50 flex justify-around items-center h-16 bg-white border-t border-slate-900/10 md:hidden">
+  <MobileNavItem 
+    href="/" 
+    icon="bar_chart" 
+    label="Metrics" 
+    active={pathname === "/"} 
+  />
+  <MobileNavItem 
+    href="/telemetry" 
+    icon="insights" 
+    label="Telemetry" 
+    active={pathname.startsWith("/telemetry")} 
+  />
+  <MobileNavItem 
+    href="/files" 
+    icon="attachment" 
+    label="Library" 
+    active={pathname.startsWith("/files")} 
+  />
+</nav>
     </div>
   );
 }
@@ -400,8 +441,8 @@ function NavItem({
       onClick={onClick}
       className={`flex items-center gap-3 px-6 py-3 transition-colors text-xs uppercase font-medium ${
         active
-          ? "bg-white text-[#954500] border-l-4 border-[#954500]"
-          : "text-slate-600 hover:bg-teal-50"
+          ? "bg-white dark:bg-[#1e293b] text-[#954500] dark:text-orange-500 border-l-4 border-[#954500]"
+          : "text-gray-300 hover:bg-teal-50 dark:hover:bg-surface-container"
       }`}
     >
       <span className="material-symbols-outlined text-lg">{icon}</span>
@@ -419,7 +460,7 @@ function ArticleCard({
   icon,
 }: ArticleCardProps) {
   return (
-    <div className="group mechanical-border bg-white dark:bg-surface-container flex flex-col overflow-hidden">
+     <div className="border border-slate-200 dark:border-border bg-[#f9f9f9] dark:bg-[#111827] border border-slate-200 dark:border-white/10 p-6 rounded-md">
       <div className="relative overflow-hidden h-48">
         <Image
           alt={title}
@@ -428,22 +469,22 @@ function ArticleCard({
           width={1200}
           height={800}
         />
-        <div className="absolute top-0 left-0 bg-secondary px-3 py-1 text-white font-mono-label text-[10px] uppercase">
+        <div className="absolute top-0 left-0 bg-secondary px-3 py-1 text-text dark:text-text font-mono-label text-[10px] uppercase">
           {tag}
         </div>
       </div>
       <div className="p-6 flex flex-col flex-grow">
-        <div className="text-slate-400 dark:text-on-surface-variant font-mono-label text-[10px] mb-2">
+        <div className="text-text-muted dark:text-on-surface-variant font-mono-label text-[10px] mb-2">
           {date}
         </div>
-        <h3 className="font-h3 text-h3 text-slate-900 mb-4 group-hover:text-primary transition-colors">
+        <h3 className="font-h3 text-h3 text-white mb-4 group-hover:text-primary transition-colors">
           {title}
         </h3>
         <p className="font-body-md text-body-md text-slate-600 dark:text-on-surface-variant line-clamp-3 mb-6">
           {description}
         </p>
         <div className="mt-auto pt-4 border-t border-slate-100 flex justify-between items-center">
-          <span className="text-slate-800 font-mono-label text-mono-label uppercase">
+          <span className="text-text dark:text-gray-600 font-mono-label text-mono-label uppercase">
             Read Report
           </span>
           <span className="material-symbols-outlined text-slate-900">
@@ -452,5 +493,17 @@ function ArticleCard({
         </div>
       </div>
     </div>
+  );
+}
+
+function MobileNavItem({ href = "#", icon, label, active = false }: { href?: string; icon: string; label: string; active?: boolean }) {
+  return (
+    <a
+      href={href}
+      className={`${active ? 'text-[#954500]' : 'text-slate-400'} flex flex-col items-center py-1`}
+    >
+      <span className="material-symbols-outlined">{icon}</span>
+      <span className="text-[10px] uppercase font-bold">{label}</span>
+    </a>
   );
 }

@@ -67,26 +67,32 @@ body {
 
 
 
-
-/* 🌞 LIGHT (luego lo llenamos) */
+/* 🌞 LIGHT */
 :root {
   --background: #ffffff;
-  --on-surface: #000000;
-  --primary: #e07322;
+  --surface: #f8f8f8;
+  --surface-container: #ffffff;
+
+  --primary: #c8610c;
+  --primary-soft: #d0a275;
+
+  --text: #2a3733;
+  --text-muted: #467879;
+
+  --border: #e5e5e5;
 }
 
-/* 🌙 DARK (TU DISEÑO) */
+/* 🌙 DARK */
 .dark {
-  --background: #1b110b;
-  --on-surface: #f4ded4;
-  --primary: #ffb68b;
+  --background: #000000;
+  --surface: #2a3733;
+  --surface-container: #1f2926;
 
-  --surface: #1b110b;
-  --surface-container: #281d17;
-  --surface-container-low: #241913;
-  --surface-container-high: #332721;
+  --primary: #c8610c;
+  --primary-soft: #d0a275;
 
-  --on-surface-variant: #ddc1b2;
+  --text: #ffffff;
+  --text-muted: #467879;
 
-  --outline: #a58c7e;
+  --border: #2a3733;
 }

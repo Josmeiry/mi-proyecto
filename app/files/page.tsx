@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Head from 'next/head';
 import Image from "next/image";
 import { ThemeToggle } from "../Components/theme-toggle";
+import { usePathname } from "next/navigation";
+
 
 
 type ActionButtonProps = {
@@ -30,10 +32,11 @@ type FileItemProps = {
 
 export default function TechnicalLibrary() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
   return (
-    <div className="bg-white text-[#1a1c1c] font-['Space_Grotesk'] min-h-screen">
+    <div className="min-h-screen bg-background text-text">
       <Head>
-        <title>SPEEDBOLT | Technical Library</title>
+        <title>SPEEDBOLT | Technical Web Site</title>
         
         <link
           href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
@@ -45,9 +48,9 @@ export default function TechnicalLibrary() {
       
 
       {/* TopAppBar */}
-      <header className="flex justify-between items-center w-full px-4 h-16 sticky top-0 z-50 bg-white border-b border-slate-900/10">
+      <header className="flex justify-between items-center w-full px-4 h-16 sticky top-0 z-50 bg-white dark:bg-surface border-b border-slate-200 dark:border-border">
         <div className="flex items-center gap-4">
-          <span onClick={() => setMenuOpen(!menuOpen)} className="material-symbols-outlined text-slate-600 cursor-pointer">
+          <span onClick={() => setMenuOpen(!menuOpen)} className="material-symbols-outlined dark:text-black cursor-pointer ">
             menu
          </span>
           <div className="flex items-center gap-2">
@@ -73,19 +76,20 @@ export default function TechnicalLibrary() {
            </div>
           </div>
         </div>
-        {/* <div className="hidden md:flex gap-8 items-center">
+        <div className="hidden md:flex gap-8 items-center">
           <nav className="flex gap-6">
-            <a className="tracking-tight uppercase font-bold text-sm text-slate-500 hover:text-[#954500] transition-colors" href="#">Dashboard</a>
+             <ThemeToggle />
+            {/* <a className="tracking-tight uppercase font-bold text-sm text-slate-500 hover:text-[#954500] transition-colors" href="#">Dashboard</a>
             <a className="tracking-tight uppercase font-bold text-sm text-slate-500 hover:text-[#954500] transition-colors" href="#">Telemetry</a>
-            <a className="tracking-tight uppercase font-bold text-sm text-[#954500] border-b-2 border-[#954500]" href="#">Library</a>
+            <a className="tracking-tight uppercase font-bold text-sm text-[#954500] border-b-2 border-[#954500]" href="#">Library</a> */}
           </nav>
-          <span className="material-symbols-outlined text-[#954500] text-3xl">account_circle</span>
-        </div> */}
+          {/* <span className="material-symbols-outlined text-[#954500] text-3xl">account_circle</span> */}
+        </div>
       </header>
 
       <div className="flex h-[calc(100vh-64px)] overflow-hidden">
         {/* NavigationDrawer (Desktop) */}
-        <aside className={`w-64 h-full bg-slate-50 border-r border-slate-900/10 pt-8 flex-col z-50 transform transition-transform duration-300 ${menuOpen ? "translate-x-0" : "-translate-x-full"} fixed top-0 left-0 md:static md:translate-x-0 md:flex`}>
+        <aside className={`w-64 h-full bg-slate-50 dark:bg-black border-r border-slate-200 dark:border-white/10  pt-8 flex-col z-50 transform transition-transform duration-300 ${menuOpen ? "translate-x-0" : "-translate-x-full"} fixed top-0 left-0 md:static md:translate-x-0 md:flex`}>
           <div className="px-6 mb-8">
             <div className="flex items-center gap-3">
               <div className="w-10 h-8 bg-slate-200 rounded-none flex items-center justify-center overflow-hidden border border-slate-300">
@@ -103,26 +107,57 @@ export default function TechnicalLibrary() {
               </div>
             </div>
           </div>
-          <nav className="flex-1 space-y-1">
-            <NavItem href="/" icon="dashboard" label="Home" />
-            <NavItem icon="analytics" label="Telemetry" />
-            <NavItem icon="speed" label="Performance" />
-            <NavItem href="/files" icon="folder_open" label="Files" active />
-            <NavItem icon="tune" label="Settings" />
-          </nav>
+         <nav className="flex-1 space-y-1">
+  {/* HOME: Solo activo si es exactamente "/" */}
+  <NavItem 
+    href="/" 
+    icon="dashboard" 
+    label="Home" 
+    active={pathname === "/"} 
+  />
+
+  <NavItem 
+    href="/telemetry" 
+    icon="analytics" 
+    label="Telemetry" 
+    active={pathname.startsWith("/telemetry")} 
+  />
+
+  <NavItem 
+    href="/performance" 
+    icon="speed" 
+    label="Performance" 
+    active={pathname.startsWith("/performance")} 
+  />
+
+  {/* FILES: Solo activo si la ruta empieza por /files */}
+  <NavItem 
+    href="/files" 
+    icon="folder_open" 
+    label="Files" 
+    active={pathname.startsWith("/files")} 
+  />
+
+  <NavItem 
+    href="/settings" 
+    icon="tune" 
+    label="Settings" 
+    active={pathname.startsWith("/settings")} 
+  />
+</nav>
         </aside>
         {menuOpen && (
           <div onClick={() => setMenuOpen(false)} className="fixed inset-0 bg-black/50 z-40 md:hidden"/>
        )}
 
         {/*  Main Content Canvas */}
-        <main className="flex-1 overflow-y-auto relative bg-white">
+        <main className="flex-1 overflow-y-auto relative bg-white dark:bg-background">
           <div className="technical-grid absolute inset-0 pointer-events-none"></div>
           <div className="relative z-10 p-4 md:p-6 lg:p-10 max-w-7xl mx-auto">
             
             {/* Header Section */}
             <div className="mb-10 border-l-4 border-[#954500] pl-6">
-              <h1 className="text-5xl font-bold text-[#1a1c1c] uppercase tracking-tighter">Technical Library</h1>
+              <h1 className="text-5xl font-bold text-orange-600 uppercase tracking-tighter">Technical Library</h1>
               <p className="text-base text-[#515f5a] max-w-2xl mt-1">
                 Unified access to aerodynamic blueprints, sensor telemetry, and simulation results for the 2024 Chassis Development Project.
               </p>
@@ -198,12 +233,29 @@ export default function TechnicalLibrary() {
         </main>
       </div>
 
+     
       {/* Mobile Nav */}
-      <nav className="fixed bottom-0 w-full z-50 flex justify-around items-center h-16 bg-white border-t border-slate-900/10 md:hidden">
-        <MobileNavItem icon="bar_chart" label="Metrics" />
-        <MobileNavItem icon="insights" label="Telemetry" />
-        <MobileNavItem icon="attachment" label="Library" active />
-      </nav>
+{/* Mobile Nav */}
+<nav className="fixed bottom-0 w-full z-50 flex justify-around items-center h-16 bg-white border-t border-slate-900/10 md:hidden">
+  <MobileNavItem 
+    href="/" 
+    icon="bar_chart" 
+    label="Metrics" 
+    active={pathname === "/"} 
+  />
+  <MobileNavItem 
+    href="/telemetry" 
+    icon="insights" 
+    label="Telemetry" 
+    active={pathname.startsWith("/telemetry")} 
+  />
+  <MobileNavItem 
+    href="/files" 
+    icon="attachment" 
+    label="Library" 
+    active={pathname.startsWith("/files")} 
+  />
+</nav>
     </div>
   );
 }
@@ -213,7 +265,9 @@ export default function TechnicalLibrary() {
 function NavItem({ href = "#", icon, label, active = false }: { href?: string; icon: string; label: string; active?: boolean }) {
   return (
     <a className={`flex items-center gap-3 px-6 py-3 transition-colors text-xs uppercase font-medium ${
-      active ? 'bg-white text-[#954500] border-l-4 border-[#954500]' : 'text-slate-600 hover:bg-teal-50'
+     active 
+     ? 'bg-white dark:bg-[#1e293b] text-[#954500] dark:text-orange-500 border-l-4 border-[#954500]' 
+     : 'text-slate-600 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-surface-container'
     }`} href={href}>
       <span className="material-symbols-outlined text-lg">{icon}</span> {label}
     </a>
@@ -222,14 +276,14 @@ function NavItem({ href = "#", icon, label, active = false }: { href?: string; i
 
 function CategoryCard({ icon, title, category, description, count }: CategoryCardProps) {
   return (
-    <div className="border border-slate-900/10 p-6 flex flex-col justify-between group hover:border-[#954500] transition-colors cursor-pointer bg-[#f9f9f9]">
+    <div className="border border-slate-200 dark:border-border bg-[#f9f9f9] dark:bg-[#111827] border border-slate-200 dark:border-white/10 p-6 rounded-md">
       <div>
         <div className="flex justify-between items-start mb-4">
           <span className="material-symbols-outlined text-[#954500] text-3xl">{icon}</span>
           <span className="text-[10px] font-bold text-slate-400 tracking-widest">CAT: {category}</span>
         </div>
-        <h3 className="text-xl font-bold uppercase mb-2">{title}</h3>
-        <p className="text-slate-500 text-sm leading-relaxed">{description}</p>
+        <h3 className="text-xl font-bold uppercase mb-2 text-black dark:text-white">{title}</h3>
+        <p className="text-slate-500 dark:text-gray-400 text-sm leading-relaxed">{description}</p>
       </div>
       <div className="mt-8 flex items-center justify-between">
         <span className="text-[11px] font-bold text-[#346667] tracking-widest">{count}</span>
@@ -246,14 +300,14 @@ function FileRow({ name, type, format, version, size, icon, iconColor }: FileIte
         <div className="flex items-center gap-3">
           <span className={`material-symbols-outlined ${iconColor}`}>{icon}</span>
           <div>
-            <p className="font-bold text-[#1a1c1c] uppercase text-xs">{name}</p>
+            <p className="font-bold text-gray-500 uppercase text-xs">{name}</p>
             <p className="text-[9px] text-slate-400 uppercase tracking-widest">{type}</p>
           </div>
         </div>
       </td>
-      <td className="p-4"><span className="px-2 py-0.5 bg-slate-100 text-slate-600 text-[9px] font-bold rounded-sm">{format}</span></td>
-      <td className="p-4 text-slate-600 font-bold text-xs">{version}</td>
-      <td className="p-4 text-slate-600 font-bold text-xs">{size}</td>
+      <td className="p-4"><span className="px-2 py-0.5 bg-slate-100 dark:text-gray-500 text-[9px] font-bold rounded-sm">{format}</span></td>
+      <td className="p-4 dark:text-gray-500 font-bold text-xs">{version}</td>
+      <td className="p-4 dark:text-gray-500 font-bold text-xs">{size}</td>
       <td className="p-4 text-right">
         <button className="text-[#954500] hover:bg-orange-50 p-2 rounded-full transition-colors">
           <span className="material-symbols-outlined text-xl">download</span>
@@ -263,9 +317,12 @@ function FileRow({ name, type, format, version, size, icon, iconColor }: FileIte
   );
 }
 
-function MobileNavItem({ icon, label, active = false }: { icon: string; label: string; active?: boolean }) {
+function MobileNavItem({ href = "#", icon, label, active = false }: { href?: string; icon: string; label: string; active?: boolean }) {
   return (
-    <a className={`${active ? 'text-[#954500]' : 'text-slate-400'} flex flex-col items-center py-1`} href="#">
+    <a
+      href={href}
+      className={`${active ? 'text-[#954500]' : 'text-slate-400'} flex flex-col items-center py-1`}
+    >
       <span className="material-symbols-outlined">{icon}</span>
       <span className="text-[10px] uppercase font-bold">{label}</span>
     </a>
