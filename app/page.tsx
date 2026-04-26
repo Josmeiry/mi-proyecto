@@ -1,179 +1,456 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ThemeToggle } from "./Components/theme-toggle";
 
+type NavItemProps = {
+  href: string;
+  icon: string;
+  label: string;
+  active?: boolean;
+  onClick?: () => void;
+};
 
-export default function Home() {
-  const [open, setOpen] = React.useState(false);
+type CategoryCardProps = {
+  icon: string;
+  title: string;
+  category: string;
+  description: string;
+  count: string;
+};
+
+type FileItemProps = {
+  icon: string;
+  iconColor: string;
+  name: string;
+  type: string;
+  format: string;
+  version: string;
+  size: string;
+};
+
+type ArticleCardProps = {
+  image: string;
+  tag: string;
+  date: string;
+  title: string;
+  description: string;
+  icon: string;
+};
+
+export default function TechnicalLibraryPage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    
-    <div className="bg-black text-[#f2dfd3] font-sans selection:bg-orange-600/30 selection:text-white overflow-x-hidden min-h-screen">
-      
-
-      {/* HEADER */}
-      <header className="fixed top-0 left-0 lg:left-80 w-full z-50 flex justify-between items-center px-8 h-20 bg-black/90 backdrop-blur-md border-b border-neutral-800/50 shadow-[0px_4px_20px_rgba(0,0,0,0.9)]">
-        <button onClick={() => setOpen(!open)} className="lg:hidden text-orange-600 text-3xl">
-          ☰
-       </button>
+    <div className="min-h-screen bg-background text-on-background">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-16 bg-white dark:bg-surface border-b border-slate-900/10 dark:border-outline">
         <div className="flex items-center gap-4">
-          <span className="material-symbols-outlined text-orange-600 text-3xl">leaderboard</span>
-          <span className="text-2xl font-black italic tracking-tighter text-orange-600 font-headline uppercase">
-            SPEEDBOLT
-          </span>
-          <ThemeToggle />
+          <button
+            onClick={() => setMenuOpen((v) => !v)}
+            className="md:hidden text-slate-700 text-3xl leading-none touch-manipulation"
+            aria-label="Abrir menú"
+          >
+            ☰
+          </button>
+
+          <div className="flex items-center gap-3">
+            <div className="p-1 bg-black rounded-full border border-orange-600">
+              <Image
+                src="/speed.png"
+                alt="SpeedBolt Logo"
+                width={40}
+                height={40}
+                className="object-contain"
+                style={{ width: "auto", height: "auto" }}
+              />
+            </div>
+            <span className="text-xl md:text-2xl font-black tracking-widest text-orange-600 uppercase">
+              SPEEDBOLT
+            </span>
+          </div>
+          
         </div>
 
-        <nav className="hidden md:flex items-center gap-8">
-          <a className="font-headline text-orange-600 border-b-2 border-orange-600 pb-1 font-bold tracking-tight uppercase cursor-pointer">Telemetry</a>
-          <a className="font-headline text-neutral-400 font-medium hover:text-teal-400 transition-colors tracking-tight uppercase cursor-pointer">Aero Dynamics</a>
-          <a className="font-headline text-neutral-400 font-medium hover:text-teal-400 transition-colors tracking-tight uppercase cursor-pointer">Vault</a>
-        </nav>
-
-        <button className="bg-[#e37903] text-[#4a2300] px-6 py-2 font-headline font-bold tracking-tight uppercase hover:bg-orange-500 transition-all active:scale-95">
-          PIT WALL ACCESS
-        </button>
+        <div className="flex items-center gap-6">
+          <nav className="hidden md:flex gap-8">
+            <ThemeToggle />
+            {/* <Link
+              href="/"
+              className="text-orange-700 border-b-2 border-orange-700 font-mono-label text-mono-label uppercase"
+            >
+              Insight
+            </Link>
+            <Link
+              href="/archive"
+              className="text-slate-600 font-medium font-mono-label text-mono-label uppercase hover:text-orange-700 transition-colors"
+            >
+              Archive
+            </Link>
+            <Link
+              href="/files"
+              className="text-slate-600 font-medium font-mono-label text-mono-label uppercase hover:text-orange-700 transition-colors"
+            >
+              Files
+            </Link> */}
+          </nav>
+          {/* <span className="material-symbols-outlined text-orange-700">
+            monitoring
+          </span> */}
+        </div>
       </header>
 
-      {/* SIDEBAR */}
-      <aside className={`fixed left-0 top-0 h-full w-80 bg-[#121212] border-r border-neutral-800 pt-24 flex flex-col z-50 shadow-2xl transform transition-transform duration-300 ${open ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}>
-        <div className="flex items-center gap-4 px-6 mb-8">
-          <img
-            className="w-12 h-12 rounded-full border border-orange-600 object-cover"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCisTkXsVHPIBPzkezr1C-ejgHBy31X0FqNL_Up18L4qD9cIqEqq60Lfrj9HTa5Q62jWIuvvMggBkXZstSz-AsdrIwl91U3OHQD0vVHFTAj0UbRRxYmmV3LXNVmHEynTEOAK-l4C3ZOFKbk8QVwpdVR6StPFfl4FaZ-L5Q3KG5qe-EnsFY07vp_sJljqyerCTf16gUs9Xu7zmMj0h4VqDES3iglCHuBvc8Px4HZWhTXBoAE098IcagtwYY0IwoMgUJwqvL79ojlkg"
-            alt="Profile"
-          />
-          <div>
-            <p className="font-headline font-bold text-orange-600 uppercase tracking-tighter leading-none">R. NEWEY</p>
-            <p className="text-neutral-500 text-[10px] uppercase tracking-widest mt-1">Lead Aerodynamicist</p>
+      {menuOpen && (
+        <div
+          onClick={() => setMenuOpen(false)}
+          className="fixed inset-0 bg-black/40 z-40 md:hidden"
+        />
+      )}
+
+      <div className="flex pt-16 min-h-screen">
+        <aside
+          className={`
+            fixed md:static top-16 md:top-auto left-0 z-50 md:z-auto
+            w-72 md:w-64 h-[calc(100vh-4rem)] md:h-auto
+            bg-slate-50 dark:bg-speed-teal dark:bg-surface-container-low border-r border-slate-900/10 dark:border-outline
+            transform transition-transform duration-300
+            ${menuOpen ? "translate-x-0" : "-translate-x-full"}
+            md:translate-x-0
+            flex flex-col pt-8
+          `}
+        >
+          <div className="px-6 mb-8">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-8 bg-slate-200 rounded-none flex items-center justify-center overflow-hidden border border-slate-300">
+                <Image
+                  src="/speed.png"
+                  alt="Engineer Avatar"
+                  width={40}
+                  height={40}
+                  className="object-cover"
+                  style={{ width: "auto", height: "auto" }}
+                />
+              </div>
+              <div>
+                <p className="text-xs uppercase font-medium text-[#346667]">
+                  SPEEDBOLT
+                </p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-widest">
+                  Lead Aerodynamicist
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <nav className="flex-1 space-y-1">
+            <NavItem
+              href="/"
+              icon="dashboard"
+              label="Home"
+              onClick={() => setMenuOpen(false)}
+            />
+            <NavItem
+              href="/telemetry"
+              icon="analytics"
+              label="Telemetry"
+              onClick={() => setMenuOpen(false)}
+            />
+            <NavItem
+              href="/performance"
+              icon="speed"
+              label="Performance"
+              onClick={() => setMenuOpen(false)}
+            />
+            <NavItem
+              href="/files"
+              icon="folder_open"
+              label="Files"
+              active
+              onClick={() => setMenuOpen(false)}
+            />
+            <NavItem
+              href="/settings"
+              icon="tune"
+              label="Settings"
+              onClick={() => setMenuOpen(false)}
+            />
+          </nav>
+        </aside>
+
+        <main className="flex-1 overflow-y-auto relative bg-white dark:bg-background">
+          <div className="engineering-grid absolute inset-0 pointer-events-none opacity-60" />
+          <div className="relative z-10 p-4 md:p-6 lg:p-10 max-w-7xl mx-auto">
+            <section className="relative w-full px-0 py-8 md:py-12 flex flex-col md:flex-row gap-12">
+              <div className="w-full md:w-2/3 relative">
+                <div className="absolute -top-4 -left-4 w-12 h-12 border-t-2 border-l-2 border-primary" />
+                <div className="absolute -bottom-4 -right-4 w-12 h-12 border-b-2 border-r-2 border-primary" />
+                <Image
+                  alt="F1 Engineering"
+                  className="w-full aspect-[16/9] object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-500"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDI183l2Hr3Qi-H24tSUO8m5SF463mM9LhLQ6Kauc5WmEu2o4qqfSc7KvSVNjAV2s9WOVV-hiCPphA_vOD0kHDlN2-WcoOL8bJIrH34aaIauHZi5khF-swrKSVV7I2xa_5E7oST_OH-tYjk_EcKW7iX0ChwENWi9UfL7qeLerDzCJ-HyuPoNyOsHLdMgbbECYIztMfitKQU_3NU3RNdPNE_aDE2sJiLkdKRMR3jO-uGg2PlBvsESHNgPJ-1q5_4BAdxi9DgYcw-tt4"
+                  width={1200}
+                  height={675}
+                  priority
+                />
+                <div className="absolute top-4 right-4 bg-primary text-white px-4 py-1 text-mono-label font-mono-label uppercase">
+                  Technical Lead
+                </div>
+              </div>
+
+              <div className="w-full md:w-1/3 flex flex-col justify-center">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="w-8 h-[1px] bg-secondary" />
+                  <span className="text-slate-800 dark:text-on-surface font-mono-label text-mono-label uppercase tracking-widest">
+                    Aerodynamics // Analysis
+                  </span>
+                </div>
+                <h1 className="font-h1 text-h1 text-slate-800 dark:text-on-surface leading-none mb-6">
+                  ADVANCED AERO: REDEFINING DOWNFORCE
+                </h1>
+                <p className="font-body-lg text-body-lg text-slate-600 dark:text-on-surface-variant mb-8 border-l-2 border-primary-container pl-6">
+                  An in-depth investigation into front-wing vortex manipulation
+                  and its impact on rear-wing efficiency in turbulent wake
+                  scenarios.
+                </p>
+                <button className="bg-primary text-slate-900 font-mono-label text-mono-label uppercase py-4 px-8 self-start tracking-widest hover:bg-primary-container transition-colors">
+                  Access Paper_
+                </button>
+              </div>
+            </section>
+
+            <section className="w-full bg-slate-50 border-y border-slate-900/10 py-6">
+              <div className="max-w-7xl mx-auto px-0 overflow-x-auto no-scrollbar flex items-center gap-8">
+                <span className="text-slate-400 dark:text-on-surface-variant font-mono-label text-mono-label uppercase shrink-0">
+                  Filter_Index:
+                </span>
+                <button className="text-primary font-bold font-mono-label text-mono-label uppercase shrink-0 px-4 py-2 bg-white mechanical-border">
+                  Telemetry
+                </button>
+                <button className="text-slate-600 dark:text-on-surface-variant font-mono-label text-mono-label uppercase shrink-0 px-4 py-2 hover:bg-slate-100 transition-colors">
+                  Aerodynamics
+                </button>
+                <button className="text-slate-600 dark:text-on-surface-variant font-mono-label text-mono-label uppercase shrink-0 px-4 py-2 hover:bg-slate-100 transition-colors">
+                  Materials
+                </button>
+                <button className="text-slate-600 dark:text-on-surface-variant font-mono-label text-mono-label uppercase shrink-0 px-4 py-2 hover:bg-slate-100 transition-colors">
+                  Simulations
+                </button>
+                <button className="text-slate-600 dark:text-on-surface-variant font-mono-label text-mono-label uppercase shrink-0 px-4 py-2 hover:bg-slate-100 transition-colors">
+                  Power Unit
+                </button>
+              </div>
+            </section>
+
+            <section className="max-w-7xl mx-auto px-0 py-20">
+              <div className="flex justify-between items-end mb-12">
+                <div>
+                  <h2 className="font-h2 text-h2 text-slate-900 dark:text-on-surface uppercase">
+                    Recent_Articles
+                  </h2>
+                  <p className="font-mono-label text-mono-label text-slate-500 dark:text-on-surface-variant uppercase">
+                    Latest system logs and research documentation
+                  </p>
+                </div>
+                <div className="text-slate-800 dark:text-on-surface flex items-center gap-2 font-mono-label text-mono-label uppercase cursor-pointer">
+                  View_All{" "}
+                  <span className="material-symbols-outlined text-sm">
+                    arrow_forward
+                  </span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <ArticleCard
+                  image="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ2Lh_g-_HcY3sMsAEMK88E7yrpvXc_vIYzGQcftb7RZK61S3AsmkwwjQpC9inurROy_oTZNgjtVQB2vPDAZ8ZPKCnuYgKVnd1VKlC5EVanGsVFmjpNgWmSk6B8b_vKpyKx7eWwZalb0SZMc7qi79OcJs9TWKH9VGXi7_Op3KK5kd8QEwwC3V60Hahrrzqke_VzDCOREChbhidp1deYp2FULoXROtIe6INtK1enqPhobl2jOL1MeuuX7K6fXXUE_HtFsA1KwH5NgE"
+                  tag="Telemetry"
+                  date="2024-07-21 // Silverstone_UK"
+                  title="RB-19 Telemetry Analysis: Silverstone 2024"
+                  description="Detailed data harvest from the high-speed Maggotts and Becketts sequence, analyzing lateral load distribution."
+                  icon="analytics"
+                />
+
+                <ArticleCard
+                  image="https://lh3.googleusercontent.com/aida-public/AB6AXuBS2i6hf6IBjZZsKLBfN-9bnaZr9IrWe5dAZZARn_MFDSqB8P5pu3hH1TiKcAzEV54G5bffd1G0IFNtxNrE2Rdf7n4gtEo2jcg2imrSthfPKnZ823m7QPXFTLLQy6eL0Dd1WsVqG1BYtT5XcQf3YLuAmRT0uob7Tta4hpGPFg7VvwtS6gUdTLP0p-kIqKvu4yMBmnGJ1AnRuKiVphj1LZr4Fgk5xLqILVjPbiC5d-tQ_3JiSf1QCHki32hBAHHBudM2B-KrTgcabEQ"
+                  tag="Materials"
+                  date="2024-08-04 // Maranello_IT"
+                  title="Titanium 3D Printing in Suspension Hubs"
+                  description="Additive manufacturing techniques to reduce unsprung mass while increasing structural integrity under 5G loads."
+                  icon="settings_input_component"
+                />
+
+                <ArticleCard
+                  image="https://lh3.googleusercontent.com/aida-public/AB6AXuB87pAqHuVnW2I_Yb0zB4Nd7lH3TIK_RrAFyBDdk4LgA1UKSePiFANcEBdFvMba8dFgHeAexIvCyXnXpJx7jcc23LfuhmtVzScMEGZJyUBISi2DL20binnOGrZJ7MuJ6UvqAf99o533egg9aZ8Tc09RyzFhmwhVVNywsPyHzPbgQhAWtYdagHHRbt0wgQsQU-Y9UQVKn8u6Ep0PLO4CUsWuvUmGk3Acyd6wWy-UQt61S0WF25SzEh545feKOvw4RUD2CTeu6pwr7Yk"
+                  tag="Simulations"
+                  date="2024-08-15 // Milton_Keynes_UK"
+                  title="CFD Optimization of Rear Floor Edges"
+                  description="Utilizing cloud-based compute clusters to simulate 50,000 floor iterations for the 2025 chassis regulations."
+                  icon="air"
+                />
+              </div>
+            </section>
+
+            <section className="w-full bg-slate-950 text-white py-20 px-6 overflow-hidden relative">
+              <div className="absolute inset-0 opacity-10 pointer-events-none engineering-grid" />
+              <div className="max-w-4xl mx-auto flex flex-col items-center text-center relative z-10">
+                <span className="text-primary font-mono-label text-mono-label uppercase mb-4 tracking-[0.2em]">
+                  Intel_Distribution
+                </span>
+                <h2 className="font-h2 text-h2 mb-8 uppercase tracking-tight">
+                  Subscribe to the Engineering Stream
+                </h2>
+                <p className="font-body-lg text-slate-400 mb-10 max-w-2xl">
+                  Receive weekly technical deep-dives, telemetry abstracts, and
+                  aerodynamic whitepapers directly to your inbox.
+                </p>
+                <form className="w-full max-w-lg flex flex-col md:flex-row gap-4">
+                  <input
+                    className="flex-grow bg-transparent border-b-2 border-slate-800 focus:border-primary px-4 py-4 font-mono-label text-white outline-none transition-all placeholder:text-slate-700"
+                    placeholder="ENGINEER_ID@CORP.F1"
+                    type="email"
+                  />
+                  <button className="bg-primary text-white font-mono-label text-mono-label uppercase px-8 py-4 hover:bg-primary-container transition-colors">
+                    Register_Device
+                  </button>
+                </form>
+                <p className="mt-6 text-slate-600 font-mono-label text-[10px] uppercase">
+                  Strict confidentiality protocols apply. No third-party data
+                  sharing.
+                </p>
+              </div>
+            </section>
+          </div>
+        </main>
+      </div>
+
+      <footer className="w-full py-12 px-8 flex flex-col md:flex-row justify-between items-start gap-8 bg-slate-50 border-t border-slate-900/10">
+        <div className="flex flex-col gap-4">
+          <div className="text-md font-bold text-slate-900 uppercase font-h3">
+            F1 ENGINEERING LABS
+          </div>
+          <p className="font-mono-label text-slate-500 max-w-xs">
+            Precision analysis and advanced R&amp;D documentation for the
+            pinnacle of motorsport engineering.
+          </p>
+          <div className="text-[12px] tracking-widest uppercase font-['Space_Grotesk'] text-slate-500 mt-4">
+            © 2024 F1 ENGINEERING LABS | ALL RIGHTS RESERVED
           </div>
         </div>
 
-        <nav className="flex flex-col">
-          <div className="bg-orange-600/10 text-orange-600 border-l-4 border-orange-600 font-bold px-6 py-4 flex items-center gap-4 font-headline text-sm tracking-widest">
-            <span className="material-symbols-outlined">query_stats</span> Telemetry
+        <div className="grid grid-cols-2 gap-x-16 gap-y-4">
+          <div className="flex flex-col gap-2">
+            <span className="text-slate-900 font-bold font-mono-label text-mono-label uppercase mb-2">
+              Technical
+            </span>
+            <a
+              className="text-slate-500 font-mono-label text-[12px] uppercase hover:text-orange-700 underline decoration-1 transition-opacity"
+              href="#"
+            >
+              Technical Specs
+            </a>
+            <a
+              className="text-slate-500 font-mono-label text-[12px] uppercase hover:text-orange-700 underline decoration-1 transition-opacity"
+              href="#"
+            >
+              Telemetry API
+            </a>
           </div>
-          <a className="text-neutral-500 px-6 py-4 hover:bg-neutral-900 active:bg-neutral-800 touch-manipulation transition-all flex items-center gap-4 font-headline text-sm tracking-widest group cursor-pointer">
-            <span className="material-symbols-outlined group-hover:translate-x-1 group-active:translate-x-1 transition-transform">air</span> Aero Dynamics
-          </a>
-          {/* <a className="text-neutral-500 px-6 py-4 hover:bg-neutral-900 transition-all flex items-center gap-4 font-headline text-sm tracking-widest group cursor-pointer">
-            <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">Files</span> Files
-            </a> */}
-            <Link href="/files" onClick={() => setOpen(false)} className="text-neutral-500 px-6 py-4 hover:bg-neutral-900 active:bg-neutral-800 transition-all flex items-center gap-4 font-headline text-sm tracking-widest group cursor-pointer touch-manipulation">
-            <span className="material-symbols-outlined group-hover:translate-x-1 group-active:translate-x-1 transition-transform">
-              Files</span>Files</Link>
-        </nav>
-
-        <div className="mt-auto p-6">
-          <div className="p-4 bg-neutral-900/50 rounded-lg border border-neutral-800">
-            <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-2 font-bold">System Status</p>
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-teal-400 shadow-[0_0_8px_#8fd2d3] animate-pulse"></span>
-              <p className="text-xs text-neutral-300">Uplink Stable (99.8%)</p>
-            </div>
+          <div className="flex flex-col gap-2">
+            <span className="text-slate-900 font-bold font-mono-label text-mono-label uppercase mb-2">
+              Research
+            </span>
+            <a
+              className="text-slate-500 font-mono-label text-[12px] uppercase hover:text-orange-700 underline decoration-1 transition-opacity"
+              href="#"
+            >
+              Aerodynamic Research
+            </a>
+            <a
+              className="text-slate-500 font-mono-label text-[12px] uppercase hover:text-orange-700 underline decoration-1 transition-opacity"
+              href="#"
+            >
+              Whitepapers
+            </a>
           </div>
         </div>
-      </aside>
-      {open && (
-       <div onClick={() => setOpen(false)} className="fixed inset-0 bg-black/50 z-40 lg:hidden"/>
-     )}
 
-      {/* MAIN CONTENT */}
-      <main className="lg:ml-80 pt-20">
-        
-        {/* HERO SECTION */}
-        <section className="relative min-h-[70vh] flex items-center px-8 md:px-16 overflow-hidden border-b border-neutral-900">
-          <div className="absolute inset-0 carbon-texture opacity-5 pointer-events-none"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-10"></div>
-          
-          <div className="relative z-20 max-w-4xl">
-            <h1 className="font-headline text-6xl md:text-8xl font-bold mb-6 leading-[0.95] text-white tracking-tighter">
-              THE FUTURE OF <br />
-              <span className="text-orange-600 italic">VELOCITY</span>
-            </h1>
-            <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mb-8 border-l-2 border-teal-500/50 pl-6 leading-relaxed">
-              Redefining high-performance engineering through real-time telemetry fusion and multi-physics aerodynamic simulation.
-            </p>
-
-            <div className="flex flex-wrap gap-4">
-              <button className="bg-orange-600 text-black px-8 py-4 font-headline font-bold uppercase tracking-tight flex items-center gap-3 hover:bg-orange-500 active:bg-orange-400 active:scale-95 transition-all touch-manipulation">
-                DEPLOY SYSTEMS <span className="material-symbols-outlined">bolt</span>
-              </button>
-              <button className="border border-teal-500 text-teal-400 px-8 py-4 font-headline font-bold uppercase tracking-tight hover:bg-teal-500/10 transition-all">
-                VIEW SCHEMATICS
-              </button>
-            </div>
+        <div className="flex gap-4">
+          <div className="w-10 h-10 border border-slate-200 flex items-center justify-center hover:bg-primary hover:text-white transition-colors cursor-pointer">
+            <span className="material-symbols-outlined text-sm">terminal</span>
           </div>
-        </section>
-
-        {/* BENTO CARDS */}
-        <section className="px-8 md:px-16 py-16">
-          <div className="flex items-center gap-4 mb-12">
-             <h2 className="font-headline text-2xl text-white font-bold uppercase tracking-widest">Engineering Excellence</h2>
-             <div className="flex-1 h-px bg-neutral-800"></div>
+          <div className="w-10 h-10 border border-slate-200 flex items-center justify-center hover:bg-primary hover:text-white transition-colors cursor-pointer">
+            <span className="material-symbols-outlined text-sm">share</span>
           </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1 */}
-            <div className="group relative bg-[#121212] border border-neutral-800 p-8 hover:border-orange-600/50 transition-all duration-300">
-              <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-100 group-hover:text-orange-600 transition-all">
-                <span className="material-symbols-outlined text-4xl">query_stats</span>
-              </div>
-              <h3 className="font-headline text-xl font-bold mb-4 text-white">TELEMETRY</h3>
-              <p className="text-neutral-400 text-sm leading-relaxed mb-6">
-                Latency-free data streaming from 200+ sensor points on the chassis. Multi-channel analysis.
-              </p>
-              <div className="flex items-center gap-2 text-[10px] font-mono text-teal-400 font-bold">
-                <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse"></span> REAL-TIME ACTIVE
-              </div>
-            </div>
+function NavItem({
+  href,
+  icon,
+  label,
+  active = false,
+  onClick,
+}: NavItemProps) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className={`flex items-center gap-3 px-6 py-3 transition-colors text-xs uppercase font-medium ${
+        active
+          ? "bg-white text-[#954500] border-l-4 border-[#954500]"
+          : "text-slate-600 hover:bg-teal-50"
+      }`}
+    >
+      <span className="material-symbols-outlined text-lg">{icon}</span>
+      {label}
+    </Link>
+  );
+}
 
-            {/* Card 2 */}
-            <div className="group relative bg-[#121212] border border-neutral-800 p-8 hover:border-teal-500/50 transition-all duration-300">
-              <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-100 group-hover:text-teal-500 transition-all">
-                <span className="material-symbols-outlined text-4xl">air</span>
-              </div>
-              <h3 className="font-headline text-xl font-bold mb-4 text-white">AERO DYNAMICS</h3>
-              <p className="text-neutral-400 text-sm leading-relaxed mb-6">
-                Advanced CFD modeling and wind tunnel data correlation for drag reduction optimization.
-              </p>
-              <div className="w-full bg-neutral-900 h-1 mt-4">
-                <div className="bg-teal-500 h-full w-[88%]"></div>
-              </div>
-            </div>
-
-            {/* Card 3 */}
-            <div className="group relative bg-[#121212] border border-neutral-800 p-8 hover:border-orange-600/50 transition-all duration-300">
-              <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-100 group-hover:text-orange-600 transition-all">
-                <span className="material-symbols-outlined text-4xl">precision_manufacturing</span>
-              </div>
-              <h3 className="font-headline text-xl font-bold mb-4 text-white">SIMULATIONS</h3>
-              <p className="text-neutral-400 text-sm leading-relaxed mb-6">
-                Driver-in-the-loop integration and virtual prototype validation across international GP circuits.
-              </p>
-              <button className="text-orange-600 text-[10px] font-bold tracking-widest uppercase flex items-center gap-2">
-                LAUNCH SIMULATOR <span className="material-symbols-outlined text-xs">open_in_new</span>
-              </button>
-            </div>
-          </div>
-        </section>
-
-        {/* FOOTER */}
-        <footer className="py-12 px-8 text-center border-t border-neutral-900 mt-20 bg-black">
-          <div className="flex justify-center items-center gap-3 mb-4">
-            <span className="material-symbols-outlined text-orange-600">leaderboard</span>
-            <p className="font-headline text-[10px] text-neutral-600 uppercase tracking-[0.3em]">
-              © 2024 V-MAX ENGINEERING. OPTIMIZED FOR HIGH-VELOCITY DATA TRANSFER.
-            </p>
-          </div>
-        </footer>
-      </main>
-
-      {/* FAB */}
-      <button className="fixed bottom-8 right-8 w-14 h-14 bg-orange-600 text-black rounded-full shadow-[0_0_20px_rgba(227,121,3,0.5)] flex items-center justify-center hover:scale-110 active:scale-90 transition-all touch-manipulation">
-        <span className="material-symbols-outlined text-3xl">bolt</span>
-      </button>
+function ArticleCard({
+  image,
+  tag,
+  date,
+  title,
+  description,
+  icon,
+}: ArticleCardProps) {
+  return (
+    <div className="group mechanical-border bg-white dark:bg-surface-container flex flex-col overflow-hidden">
+      <div className="relative overflow-hidden h-48">
+        <Image
+          alt={title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          src={image}
+          width={1200}
+          height={800}
+        />
+        <div className="absolute top-0 left-0 bg-secondary px-3 py-1 text-white font-mono-label text-[10px] uppercase">
+          {tag}
+        </div>
+      </div>
+      <div className="p-6 flex flex-col flex-grow">
+        <div className="text-slate-400 dark:text-on-surface-variant font-mono-label text-[10px] mb-2">
+          {date}
+        </div>
+        <h3 className="font-h3 text-h3 text-slate-900 mb-4 group-hover:text-primary transition-colors">
+          {title}
+        </h3>
+        <p className="font-body-md text-body-md text-slate-600 dark:text-on-surface-variant line-clamp-3 mb-6">
+          {description}
+        </p>
+        <div className="mt-auto pt-4 border-t border-slate-100 flex justify-between items-center">
+          <span className="text-slate-800 font-mono-label text-mono-label uppercase">
+            Read Report
+          </span>
+          <span className="material-symbols-outlined text-slate-900">
+            {icon}
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

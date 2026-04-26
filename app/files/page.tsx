@@ -73,14 +73,14 @@ export default function TechnicalLibrary() {
            </div>
           </div>
         </div>
-        <div className="hidden md:flex gap-8 items-center">
+        {/* <div className="hidden md:flex gap-8 items-center">
           <nav className="flex gap-6">
             <a className="tracking-tight uppercase font-bold text-sm text-slate-500 hover:text-[#954500] transition-colors" href="#">Dashboard</a>
             <a className="tracking-tight uppercase font-bold text-sm text-slate-500 hover:text-[#954500] transition-colors" href="#">Telemetry</a>
             <a className="tracking-tight uppercase font-bold text-sm text-[#954500] border-b-2 border-[#954500]" href="#">Library</a>
           </nav>
           <span className="material-symbols-outlined text-[#954500] text-3xl">account_circle</span>
-        </div>
+        </div> */}
       </header>
 
       <div className="flex h-[calc(100vh-64px)] overflow-hidden">
@@ -104,10 +104,10 @@ export default function TechnicalLibrary() {
             </div>
           </div>
           <nav className="flex-1 space-y-1">
-            <NavItem icon="dashboard" label="Dashboard" />
+            <NavItem href="/" icon="dashboard" label="Home" />
             <NavItem icon="analytics" label="Telemetry" />
             <NavItem icon="speed" label="Performance" />
-            <NavItem icon="folder_open" label="Files" active />
+            <NavItem href="/files" icon="folder_open" label="Files" active />
             <NavItem icon="tune" label="Settings" />
           </nav>
         </aside>
@@ -210,11 +210,11 @@ export default function TechnicalLibrary() {
 
 // --- Subcomponentes para Limpieza de Código ---
 
-function NavItem({ icon, label, active = false }: { icon: string; label: string; active?: boolean }) {
+function NavItem({ href = "#", icon, label, active = false }: { href?: string; icon: string; label: string; active?: boolean }) {
   return (
     <a className={`flex items-center gap-3 px-6 py-3 transition-colors text-xs uppercase font-medium ${
       active ? 'bg-white text-[#954500] border-l-4 border-[#954500]' : 'text-slate-600 hover:bg-teal-50'
-    }`} href="#">
+    }`} href={href}>
       <span className="material-symbols-outlined text-lg">{icon}</span> {label}
     </a>
   );

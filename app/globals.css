@@ -1,4 +1,9 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 
 :root {
   --background: #ffffff;
@@ -23,7 +28,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-   font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif;
+  font-family: "Space Grotesk", sans-serif;
 }
 
 
@@ -47,3 +53,40 @@ body {
  .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
  }
+
+
+.mechanical-border {
+  border: 1px solid rgba(42, 55, 51, 0.15);
+}
+
+.engineering-grid {
+  background-image: linear-gradient(rgba(70, 120, 121, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(70, 120, 121, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+
+
+
+/* 🌞 LIGHT (luego lo llenamos) */
+:root {
+  --background: #ffffff;
+  --on-surface: #000000;
+  --primary: #e07322;
+}
+
+/* 🌙 DARK (TU DISEÑO) */
+.dark {
+  --background: #1b110b;
+  --on-surface: #f4ded4;
+  --primary: #ffb68b;
+
+  --surface: #1b110b;
+  --surface-container: #281d17;
+  --surface-container-low: #241913;
+  --surface-container-high: #332721;
+
+  --on-surface-variant: #ddc1b2;
+
+  --outline: #a58c7e;
+}
